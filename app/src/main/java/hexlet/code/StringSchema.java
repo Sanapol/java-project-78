@@ -3,11 +3,11 @@ package hexlet.code;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class StringSchema extends Validator {
+public class StringSchema extends Validator<String> {
 
     public void required() {
         Predicate<String> stringRequired = string ->
-                string != null || !string.isEmpty();
+                string != null && !string.isEmpty();
 
         predicates.add(stringRequired);
     }

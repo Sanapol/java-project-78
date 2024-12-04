@@ -13,10 +13,13 @@ class StringSchemaTest {
 
         StringSchema shema = v.string();
 
-        v.required();
+        shema.required();
+        shema.minLength(2);
+        shema.contains("A");
 
-        var answer = v.isValid("object");
-        System.out.println(answer);
-        assertEquals(answer, true);
+        assertEquals(shema.isValid("Alex"), true);
+        assertEquals(shema.isValid(""), false);
+        assertEquals(shema.isValid(null), false);
+        assertEquals(shema.isValid("Max"), false);
     }
 }

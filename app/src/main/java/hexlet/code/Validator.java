@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.StringSchema;
 
 import java.util.ArrayList;
 import java.util.List;
