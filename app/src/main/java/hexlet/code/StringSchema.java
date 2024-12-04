@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class StringSchema extends Validator<String> {

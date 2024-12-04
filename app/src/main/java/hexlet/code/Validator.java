@@ -1,13 +1,10 @@
 package hexlet.code;
 
-import hexlet.code.StringSchema;
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 
-public class Validator <T> {
+public class Validator<T> {
     protected ArrayList<Predicate<T>> predicates = new ArrayList<>();
 
     public boolean isValid(T value) {
