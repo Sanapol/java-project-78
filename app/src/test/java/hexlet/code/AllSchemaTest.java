@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AllSchemaTest {
 
     @Test
-    void stringTest() throws Exception {
+    void stringTest() {
         Validator v = new Validator();
 
         StringSchema schema = v.string();
@@ -37,7 +37,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void numberTest() throws Exception {
+    void numberTest() {
         Validator v = new Validator();
 
         NumberSchema schema = v.number();
@@ -59,7 +59,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void mapTest() throws Exception {
+    void mapTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
