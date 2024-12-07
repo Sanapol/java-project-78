@@ -5,23 +5,26 @@ import java.util.function.Predicate;
 
 public class NumberSchema extends BaseSchema<Integer> {
 
-    public void required() {
+    public NumberSchema required() {
         Predicate<Integer> numberRequired = Objects::nonNull;
 
-        predicates.put(1, numberRequired);
+        predicates.put("A", numberRequired);
+        return this;
     }
 
-    public void positive() {
+    public NumberSchema positive() {
         Predicate<Integer> numberPositive = number ->
                 number > 0;
 
-        predicates.put(2, numberPositive);
+        predicates.put("B", numberPositive);
+        return this;
     }
 
-    public void range(int number1, int number2) {
+    public NumberSchema range(int number1, int number2) {
         Predicate<Integer> numberRange = number ->
                 number1 <= number && number <= number2;
 
-        predicates.put(3, numberRange);
+        predicates.put("C", numberRange);
+        return this;
     }
 }

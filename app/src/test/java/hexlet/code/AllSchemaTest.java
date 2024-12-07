@@ -24,8 +24,7 @@ class AllSchemaTest {
         schema.contains("x");
         assertTrue(schema.isValid("Max"));
 
-        schema.minLength(4);
-        schema.contains("A");
+        schema.minLength(4).contains("A");
 
         assertTrue(schema.isValid("Alex"));
         assertFalse(schema.isValid(""));
@@ -63,10 +62,10 @@ class AllSchemaTest {
 
         assertTrue(schema.isValid(null));
 
-        schema.required();
-        assertFalse(schema.isValid(null));
-
         schema.sizeof(2);
+        schema.required();
+
+        assertFalse(schema.isValid(null));
 
         Map<String, String> map = new HashMap<>();
         map.put("key1", "value1");
@@ -76,5 +75,46 @@ class AllSchemaTest {
         map.put("key2", "value2");
 
         assertTrue(schema.isValid(map));
+    }
+
+    @Test
+    void MapShapeStringTest() {
+        Validator v = new Validator();
+
+        MapSchema schema = v.map();
+
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
+
+        schemas.put("firstName", v.string().required().contains("o"));
+
+        schemas.put("lastName", v.string().required().minLength(2));
+
+        schema.shape(schemas);
+
+        Map<String, String> human1 = new HashMap<>();
+        human1.put("firstName", "John");
+        human1.put("lastName", "S");
+        assertFalse(schema.isValid(human1));
+    }
+
+    @Test
+    void MapShapeNumberTest() {
+        Validator v = new Validator();
+
+        MapSchema schema = v.map().required().sizeof(3);
+
+        Map<Integer, BaseSchema<Integer>> schemas = new HashMap<>();
+
+        schemas.put(6, v.number().required());
+        schemas.put(7, v.number().required().positive());
+        schemas.put(8, v.number().required().range(5, 20));
+
+        schema.shape(schemas);
+
+        Map<Integer, Integer> numbers = new HashMap<>();
+        numbers.put(6, 8);
+        numbers.put(7, 9);
+        numbers.put(8, 21);
+        assertFalse(schema.isValid(numbers));
     }
 }

@@ -4,24 +4,27 @@ import java.util.function.Predicate;
 
 public class StringSchema extends BaseSchema<String> {
 
-    public void required() {
+    public StringSchema required() {
         Predicate<String> stringRequired = string ->
                 string != null && !string.isEmpty();
 
-        predicates.put(1, stringRequired);
+        predicates.put("A", stringRequired);
+        return this;
     }
 
-    public void minLength(int size) {
+    public StringSchema minLength(int size) {
         Predicate<String> stringMinLength = string ->
                 string.length() >= size;
 
-        predicates.put(2, stringMinLength);
+        predicates.put("B", stringMinLength);
+        return this;
     }
 
-    public void contains(String contain) {
+    public StringSchema contains(String contain) {
         Predicate<String> stringContains = string ->
                 string.contains(contain);
 
-        predicates.put(3, stringContains);
+        predicates.put("C", stringContains);
+        return this;
     }
 }
