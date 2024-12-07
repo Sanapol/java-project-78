@@ -12,9 +12,9 @@ public class BaseSchema<T> {
         Set<Map.Entry<Object, Predicate<T>>> predicate = predicates.entrySet();
 
         for (Map.Entry<Object, Predicate<T>> test : predicate) {
-                if (!test.getValue().test(value)) {
-                    return false;
-                }
+            if (!test.getValue().test(value)) {
+                return false;
+            }
         }
         return true;
     }

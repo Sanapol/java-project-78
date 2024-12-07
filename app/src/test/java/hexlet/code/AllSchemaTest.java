@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AllSchemaTest {
 
     @Test
-    void StringTest() {
+    void stringTest() {
         Validator v = new Validator();
 
         StringSchema schema = v.string();
@@ -33,7 +33,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void NumbreTest() {
+    void numberTest() {
         Validator v = new Validator();
 
         NumberSchema schema = v.number();
@@ -55,7 +55,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void MapTest() {
+    void mapTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
@@ -78,7 +78,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void MapShapeStringTest() {
+    void mapShapeStringTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
@@ -98,7 +98,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void MapShapeNumberTest() {
+    void mapShapeNumberTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map().required().sizeof(3);
