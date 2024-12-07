@@ -82,7 +82,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void mapShapeStringTest() throws Exception {
+    void mapShapeStringTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map();
@@ -102,7 +102,7 @@ class AllSchemaTest {
     }
 
     @Test
-    void mapShapeNumberTest() throws Exception {
+    void mapShapeNumberTest() {
         Validator v = new Validator();
 
         MapSchema schema = v.map().required().sizeof(3);
