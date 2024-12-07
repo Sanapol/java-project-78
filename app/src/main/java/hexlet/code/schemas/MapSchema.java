@@ -7,14 +7,14 @@ import java.util.function.Predicate;
 
 public class MapSchema extends BaseSchema<Map<?, ?>> {
 
-    public MapSchema required() {
+    public MapSchema required() throws Exception {
         Predicate<Map<?, ?>> mapRequired = Objects::nonNull;
 
         predicates.put("A", mapRequired);
         return this;
     }
 
-    public MapSchema sizeof(int number) {
+    public MapSchema sizeof(int number) throws Exception {
         Predicate<Map<?, ?>> mapSizeof = map ->
                 map.size() == number;
 
@@ -22,13 +22,17 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
         return this;
     }
 
-    public <T> void shape(Map<?, BaseSchema<T>> rules) {
+    public <T> void shape(Map<?, BaseSchema<T>> rules) throws Exception {
         Predicate<Map<?, ?>> mapShape = map -> {
             Set<? extends java.util.Map.Entry<?, ?>> maps = map.entrySet();
             for (Map.Entry<?, ?> setMap : maps) {
                 if (rules.containsKey(setMap.getKey())) {
-                    if (!rules.get(setMap.getKey()).isValid((T) setMap.getValue())) {
-                        return false;
+                    try {
+                        if (!rules.get(setMap.getKey()).isValid((T) setMap.getValue())) {
+                            return false;
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }

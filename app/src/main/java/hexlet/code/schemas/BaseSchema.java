@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class BaseSchema<T> {
     protected Map<Object, Predicate<T>> predicates = new HashMap<>();
 
-    public boolean isValid(T value) {
+    public boolean isValid(T value) throws Exception {
         Set<Map.Entry<Object, Predicate<T>>> predicate = predicates.entrySet();
 
         for (Map.Entry<Object, Predicate<T>> test : predicate) {

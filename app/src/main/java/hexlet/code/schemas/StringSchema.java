@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 public class StringSchema extends BaseSchema<String> {
 
-    public StringSchema required() {
+    public StringSchema required() throws Exception {
         Predicate<String> stringRequired = string ->
                 string != null && !string.isEmpty();
 
@@ -12,7 +12,7 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    public StringSchema minLength(int size) {
+    public StringSchema minLength(int size) throws Exception {
         Predicate<String> stringMinLength = string ->
                 string.length() >= size;
 
@@ -20,7 +20,7 @@ public class StringSchema extends BaseSchema<String> {
         return this;
     }
 
-    public StringSchema contains(String contain) {
+    public StringSchema contains(String contain) throws Exception {
         Predicate<String> stringContains = string ->
                 string.contains(contain);
 
