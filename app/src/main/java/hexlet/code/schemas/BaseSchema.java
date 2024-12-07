@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class BaseSchema<T> {
+public abstract class BaseSchema<T> {
     protected Map<Object, Predicate<T>> predicates = new HashMap<>();
 
-    public boolean isValid(T value) throws RuntimeException {
+    public final boolean isValid(T value) throws RuntimeException {
         Set<Map.Entry<Object, Predicate<T>>> predicate = predicates.entrySet();
 
         for (Map.Entry<Object, Predicate<T>> test : predicate) {

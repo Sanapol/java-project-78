@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
     public MapSchema required() throws RuntimeException {
         Predicate<Map<?, ?>> mapRequired = Objects::nonNull;
