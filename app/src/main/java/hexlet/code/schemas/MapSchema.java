@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.Map.Entry;
 
 public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
@@ -24,8 +25,8 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
     public <T> void shape(Map<?, BaseSchema<T>> rules) throws RuntimeException {
         Predicate<Map<?, ?>> mapShape = map -> {
-            Set<? extends java.util.Map.Entry<?, ?>> maps = map.entrySet();
-            for (Map.Entry<?, ?> setMap : maps) {
+            Set<? extends Entry<?, ?>> maps = map.entrySet();
+            for (Entry<?, ?> setMap : maps) {
                 if (rules.containsKey(setMap.getKey())) {
                     if (!rules.get(setMap.getKey()).isValid((T) setMap.getValue())) {
                         return false;
@@ -34,8 +35,8 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
             }
             return true;
         };
-        Set<? extends Map.Entry<?, BaseSchema<T>>> rule = rules.entrySet();
-        for (Map.Entry<?, BaseSchema<T>> set : rule) {
+        Set<? extends Entry<?, BaseSchema<T>>> rule = rules.entrySet();
+        for (Entry<?, BaseSchema<T>> set : rule) {
             predicates.put(set.getKey(), mapShape);
         }
     }
