@@ -27,13 +27,9 @@ public final class MapSchema extends BaseSchema<Map<?, ?>> {
             Set<? extends java.util.Map.Entry<?, ?>> maps = map.entrySet();
             for (Map.Entry<?, ?> setMap : maps) {
                 if (rules.containsKey(setMap.getKey())) {
-                    try {
                         if (!rules.get(setMap.getKey()).isValid((T) setMap.getValue())) {
                             return false;
                         }
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
                 }
             }
             return true;
