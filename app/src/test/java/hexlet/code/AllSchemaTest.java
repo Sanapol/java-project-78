@@ -8,9 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,11 +32,7 @@ class AllSchemaTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "Max, Viktor",
-            "Alex, x",
-            "Mix,  "
-    })
+    @CsvSource({"Max, Viktor", "Alex, x", "Mix,  "})
     void stringTest(String parameterTrue, String parameterFalse) {
 
         stringSchema.required().minLength(2).contains("t");
@@ -50,12 +43,7 @@ class AllSchemaTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "3,  ",
-            "50, -1",
-            "100, 101"
-
-    })
+    @CsvSource({"3,  ", "50, -1", "100, 101"})
     void numberTest(Integer parameterTrue, Integer parameterFalse) {
 
         numberSchema.required().positive().range(1, 3);
