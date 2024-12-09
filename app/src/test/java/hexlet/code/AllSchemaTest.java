@@ -26,7 +26,7 @@ class AllSchemaTest {
     MapSchema mapSchema;
 
     @BeforeEach
-    public void TestPrepare() {
+    public void testPrepare() {
         v = new Validator();
 
         stringSchema = v.string();
