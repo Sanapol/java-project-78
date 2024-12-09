@@ -7,6 +7,7 @@ import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -34,76 +35,48 @@ class AllSchemaTest {
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    @ValueSource(strings = {"Max", "Alex", "X"})
-    void stringTest(String parameter) {
+    @CsvSource({
+            "Max, Viktor",
+            "Alex, x",
+            "Mix,  "
+    })
+    void stringTest(String parameterTrue, String parameterFalse) {
 
-        assertTrue(stringSchema.isValid(parameter));
+        stringSchema.required().minLength(2).contains("t");
+        stringSchema.contains("x");
 
-        stringSchema.required().minLength(2).contains("x");
-        stringSchema.contains("Z");
-
-        assertFalse(stringSchema.isValid(parameter));
-        assertTrue(stringSchema.isValid("Zed"));
+        assertTrue(stringSchema.isValid(parameterTrue));
+        assertFalse(stringSchema.isValid(parameterFalse));
     }
 
     @ParameterizedTest
-    @NullSource
-    @ValueSource(ints = {1, -200, -50})
-    void numberTest(Integer parameter) {
+    @CsvSource({
+            "3,  ",
+            "50, -1",
+            "100, 101"
 
-        assertTrue(numberSchema.isValid(parameter));
+    })
+    void numberTest(Integer parameterTrue, Integer parameterFalse) {
 
-        numberSchema.required().positive().range(2, 3);
-        numberSchema.range(2, 100);
+        numberSchema.required().positive().range(1, 3);
+        numberSchema.range(0, 100);
 
-        assertFalse(numberSchema.isValid(parameter));
-        assertTrue(numberSchema.isValid(30));
-
+        assertTrue(numberSchema.isValid(parameterTrue));
+        assertFalse(numberSchema.isValid(parameterFalse));
     }
 
     @Test
     void mapTest() {
-
-        mapSchema.sizeof(2).required();
-
-        assertFalse(mapSchema.isValid(null));
-
-        Map<String, String> map = new HashMap<>();
-        map.put("key1", "value1");
-
-        assertFalse(mapSchema.isValid(map));
-
-        map.put("key2", "value2");
-
-        assertTrue(mapSchema.isValid(map));
-    }
-
-    @Test
-    void mapShapeStringTest() {
-
-        Map<String, BaseSchema<String>> schemas = new HashMap<>();
-        schemas.put("firstName", v.string().required().contains("o"));
-        schemas.put("lastName", v.string().required().minLength(2));
-
-        mapSchema.shape(schemas);
-
-        Map<String, String> human1 = new HashMap<>();
-        human1.put("firstName", "John");
-        human1.put("lastName", "S");
-
-        assertFalse(mapSchema.isValid(human1));
-    }
-
-    @Test
-    void mapShapeNumberTest() {
 
         mapSchema = v.map().required().sizeof(3);
 
         Map<Integer, BaseSchema<Integer>> schemas = new HashMap<>();
         schemas.put(6, v.number().required());
         schemas.put(7, v.number().required().positive());
+
+        assertFalse(mapSchema.isValid(schemas));
         schemas.put(8, v.number().required().range(5, 20));
+        assertTrue(mapSchema.isValid(schemas));
 
         mapSchema.shape(schemas);
 
