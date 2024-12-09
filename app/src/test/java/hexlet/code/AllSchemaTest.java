@@ -19,11 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class AllSchemaTest {
-    final String nul = null;
-    Validator v;
-    StringSchema stringSchema;
-    NumberSchema numberSchema;
-    MapSchema mapSchema;
+    private Validator v;
+    private StringSchema stringSchema;
+    private NumberSchema numberSchema;
+    private MapSchema mapSchema;
 
     @BeforeEach
     public void testPrepare() {
