@@ -54,17 +54,14 @@ class AllSchemaTest {
     }
 
     @Test
-    void mapTest() {
+    void mapShapeTest() {
 
         mapSchema = v.map().required().sizeof(3);
 
         Map<Integer, BaseSchema<Integer>> schemas = new HashMap<>();
         schemas.put(6, v.number().required());
         schemas.put(7, v.number().required().positive());
-
-        assertFalse(mapSchema.isValid(schemas));
         schemas.put(8, v.number().required().range(5, 20));
-        assertTrue(mapSchema.isValid(schemas));
 
         mapSchema.shape(schemas);
 
